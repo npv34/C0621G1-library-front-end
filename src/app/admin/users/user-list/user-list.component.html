@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-header">
+    {{ pageTitle }}
+  </div>
+  <div>Resize image
+    <input type="range" [value]="imageSize" min="50" max="250" [(ngModel)]="imageSize" >
+  </div>
+  Current image size: {{ imageSize }} px;
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Avatar</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users; let i = index">
+        <th scope="row">{{ i + 1}}</th>
+        <td>{{ user.username }}</td>
+        <td><img [width]="imageSize" src="{{ user.avatar }}" alt=""></td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>
+          <button [class]="btnClass" (click)="delete(i)">Delete</button>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
