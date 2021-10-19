@@ -29,17 +29,20 @@ export class UserListComponent implements OnInit {
   ]
   pageTitle = "Danh sách người dùng";
   btnClass = "btn btn-danger";
-  imageSize = "150"
+  imageSize = "150";
+  message = "";
 
   constructor() {
   }
 
   ngOnInit(): void {
+    console.log('xin chao')
   }
 
   delete(id: any) {
     if (confirm('Are you sure?')) {
       this.users.splice(id, 1);
+      this.message = "Delete successfully!"
     }
   }
 

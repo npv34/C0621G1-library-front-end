@@ -31,9 +31,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/my.css",
+              "src/assets/css/all.min.css",
+              "src/assets/css/sb-admin-2.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/sb-admin-2.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -1,12 +1,14 @@
 <div class="card">
   <div class="card-header">
     {{ pageTitle }}
+
   </div>
   <div>Resize image
-    <input type="range" [value]="imageSize" min="50" max="250" [(ngModel)]="imageSize" >
+    <input type="range" [value]="imageSize" min="50" max="250" (input)="resizeImage($event)" >
   </div>
   Current image size: {{ imageSize }} px;
   <div class="card-body">
+    <div *ngIf="message" class="alert alert-success">{{ message }}</div>
     <table class="table table-striped">
       <thead>
       <tr>
