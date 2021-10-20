@@ -11,6 +11,8 @@ import { SidebarComponent } from './admin/layouts/core/sidebar/sidebar.component
 import {FooterComponent} from "./admin/layouts/core/footer/footer.component";
 import {NavbarComponent} from "./admin/layouts/core/navbar/navbar.component";
 import { LoginComponent } from './admin/login/login.component';
+import { ShowRatingNumberComponent } from './admin/show-rating-number/show-rating-number.component';
+import { RatingNumberComponent } from './admin/rating-number/rating-number.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { LoginComponent } from './admin/login/login.component';
     SidebarComponent,
     FooterComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    ShowRatingNumberComponent,
+    RatingNumberComponent
   ],
   imports: [
     BrowserModule,
