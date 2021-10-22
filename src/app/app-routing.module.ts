@@ -4,6 +4,8 @@ import {MasterComponent} from "./admin/layouts/master/master.component";
 import {DashboardComponent} from "./admin/dashboard/dashboard.component";
 import {UserListComponent} from "./admin/users/user-list/user-list.component";
 import {LoginComponent} from "./admin/login/login.component";
+import {UserEditComponent} from "./admin/users/user-edit/user-edit.component";
+import {AuthGuard} from "./guard/auth.guard";
 
 const routes: Routes = [
   {
@@ -16,9 +18,20 @@ const routes: Routes = [
       },
       {
         path:'users',
-        component: UserListComponent
+        component: UserListComponent,
+        children: [
+          {
+            path: 'demo',
+            component: DashboardComponent
+          }
+        ]
+      },
+      {
+        path: 'users/:id/edit',
+        component: UserEditComponent
+
       }
-    ]
+    ], canActivate: [AuthGuard]
   },
   {
     path: 'login',

@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserListComponent } from './admin/users/user-list/user-list.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MasterComponent } from './admin/layouts/master/master.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { SidebarComponent } from './admin/layouts/core/sidebar/sidebar.component';
@@ -13,6 +13,7 @@ import {NavbarComponent} from "./admin/layouts/core/navbar/navbar.component";
 import { LoginComponent } from './admin/login/login.component';
 import { ShowRatingNumberComponent } from './admin/show-rating-number/show-rating-number.component';
 import { RatingNumberComponent } from './admin/rating-number/rating-number.component';
+import { UserEditComponent } from './admin/users/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +26,14 @@ import { RatingNumberComponent } from './admin/rating-number/rating-number.compo
     NavbarComponent,
     LoginComponent,
     ShowRatingNumberComponent,
-    RatingNumberComponent
+    RatingNumberComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

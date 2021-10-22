@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IUser} from "../IUser";
+import {FormBuilder, FormControl, FormControlName, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-user-list',
@@ -7,41 +9,37 @@ import {IUser} from "../IUser";
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  users: IUser[] = [
-    {
-      username: "admin",
-      email: "admin@gmail.com",
-      phone: "0909989898",
-      avatar: "https://e7.pngegg.com/pngimages/340/946/png-clipart-avatar-user-computer-icons-software-developer-avatar-child-face-thumbnail.png"
-    },
-    {
-      username: "cuong",
-      email: "cuong@gmail.com",
-      phone: "0909989898",
-      avatar: "https://www.w3schools.com/howto/img_avatar2.png"
-    },
-    {
-      username: "hung",
-      email: "admin@gmail.com",
-      phone: "0909989898",
-      avatar: "https://teachingandlearning.schulich.yorku.ca/wp-content/uploads/2019/10/avatar6.png"
-    }
-  ]
+  users: IUser[] = []
   pageTitle = "Danh sách người dùng";
   btnClass = "btn btn-danger";
   imageSize = "150";
   message = "";
 
-  constructor() {
+  user={
+    userName:"",
+    email:"hung@gmail.com",
+    phone:"092841421"
+  }
+
+  formCreate?: FormGroup;
+
+  constructor(private fb: FormBuilder,
+              private userService: UserService) {
   }
 
   ngOnInit(): void {
-    console.log('xin chao')
+    this.users = this.userService.getAll();
+    this.formCreate = this.fb.group({
+      userName : ['', [Validators.required, Validators.minLength(4)]],
+      email : [''],
+      phone : [''],
+      role: ['']
+    })
   }
 
   delete(id: any) {
     if (confirm('Are you sure?')) {
-      this.users.splice(id, 1);
+      this.userService.deleteUser(id);
       this.message = "Delete successfully!"
     }
   }
@@ -51,4 +49,12 @@ export class UserListComponent implements OnInit {
     this.imageSize = value;
   }
 
+  submit(){
+    let data = this.formCreate?.value;
+    this.userService.addUser(data);
+  }
+
+  get userName() {
+    return this.formCreate?.get('userName')
+  }
 }

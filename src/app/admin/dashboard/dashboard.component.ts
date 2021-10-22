@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IRatingUnit} from "./IRatingUnit";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -27,10 +28,12 @@ export class DashboardComponent implements OnInit {
       active: false
     }]
 
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
+    let users = this.userService.getAll();
+    console.log(users);
   }
 
   ratingEvent(index: number) {

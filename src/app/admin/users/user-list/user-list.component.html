@@ -9,30 +9,61 @@
   Current image size: {{ imageSize }} px;
   <div class="card-body">
     <div *ngIf="message" class="alert alert-success">{{ message }}</div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Username</th>
-        <th scope="col">Avatar</th>
-        <th scope="col">Email</th>
-        <th scope="col">Phone</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of users; let i = index">
-        <th scope="row">{{ i + 1}}</th>
-        <td>{{ user.username }}</td>
-        <td><img [width]="imageSize" src="{{ user.avatar }}" alt=""></td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.phone }}</td>
-        <td>
-          <button [class]="btnClass" (click)="delete(i)">Delete</button>
-        </td>
-      </tr>
+    <div class="row">
+      <div class="col-md-4">
+        <form *ngIf="formCreate" [formGroup]="formCreate">
+  <label>User name:(*)</label>
+  <input id="userName" formControlName="userName" type="text"  class="form-control" >
+          <div *ngIf="userName?.touched && userName?.invalid" class="text-danger">
+            <p *ngIf="userName?.errors?.required">
+              Ten khong duoc de trong
+            </p>
+            <p *ngIf="userName?.errors?.minlength">
+              Ten khong it nhat 4 ky tu
+            </p>
+          </div>
+          <label>Email:</label>
+  <input formControlName="email" type="email" class="form-control">
+  <label>Phone:</label>
+  <input formControlName="phone" type="text"  class="form-control">
+          <label for="">Role</label>
+<!--          <select formControlName="role">-->
+<!--            <option value="1">Admin</option>-->
+<!--            <option value="2">User</option>-->
+<!--          </select>-->
+  <button type="submit" (click)="submit()" class="btn btn-success" [disabled]="formCreate.invalid">Submit</button>
+        </form>
+      </div>
+      <div class="col-md-8">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Avatar</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of users; let i = index">
+            <th scope="row">{{ i + 1}}</th>
+            <td>{{ user.username }}</td>
+            <td><img [width]="imageSize" src="{{ user.avatar }}" alt=""></td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>
+              <button [class]="btnClass" (click)="delete(i)">Delete</button>
+              <button class="btn btn-primary" [routerLink]="[i, 'edit']">Edit</button>
+            </td>
+          </tr>
 
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>
+<router-outlet></router-outlet>
