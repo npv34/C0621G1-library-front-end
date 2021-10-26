@@ -14,6 +14,7 @@ import { LoginComponent } from './admin/login/login.component';
 import { ShowRatingNumberComponent } from './admin/show-rating-number/show-rating-number.component';
 import { RatingNumberComponent } from './admin/rating-number/rating-number.component';
 import { UserEditComponent } from './admin/users/user-edit/user-edit.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UserEditComponent } from './admin/users/user-edit/user-edit.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

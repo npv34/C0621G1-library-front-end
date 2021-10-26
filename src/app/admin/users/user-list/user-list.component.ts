@@ -14,6 +14,8 @@ export class UserListComponent implements OnInit {
   btnClass = "btn btn-danger";
   imageSize = "150";
   message = "";
+  error = "";
+  roles: any[] = [];
 
   user={
     userName:"",
@@ -28,19 +30,42 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.users = this.userService.getAll();
+    //this.users = this.userService.getAll();
+    this.getAllUser();
+    this.getRoles();
     this.formCreate = this.fb.group({
-      userName : ['', [Validators.required, Validators.minLength(4)]],
+      name : ['', [Validators.required, Validators.minLength(4)]],
       email : [''],
-      phone : [''],
+      password : [''],
       role: ['']
+    })
+  }
+
+  getRoles() {
+    this.userService.getAllRoleUser().subscribe(res => {
+      console.log(res)
+      this.roles = res;
+    })
+  }
+
+  getAllUser() {
+    this.userService.getAll().subscribe(res => {
+      console.log(res)
+      this.users = res.users;
     })
   }
 
   delete(id: any) {
     if (confirm('Are you sure?')) {
-      this.userService.deleteUser(id);
-      this.message = "Delete successfully!"
+      this.userService.deleteUser(id).subscribe(res => {
+        if (res.status == 'errors') {
+          this.error = res.message
+        } else  {
+          this.message = res.message;
+          this.users = res.users;
+        }
+      });
+
     }
   }
 
@@ -51,10 +76,11 @@ export class UserListComponent implements OnInit {
 
   submit(){
     let data = this.formCreate?.value;
-    this.userService.addUser(data);
+    console.log(data)
+    //this.userService.addUser(data);
   }
 
-  get userName() {
-    return this.formCreate?.get('userName')
+  get name() {
+    return this.formCreate?.get('name')
   }
 }

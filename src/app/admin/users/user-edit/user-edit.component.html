@@ -1,15 +1,11 @@
 <form *ngIf="formEdit" class="form" [formGroup]="formEdit" (ngSubmit)="submit()">
   <div class="form-group">
     <label for="">Username</label>
-    <input type="text" class="form-control" formControlName="username">
+    <input type="text" class="form-control" formControlName="name">
   </div>
   <div class="form-group">
     <label for="">Email</label>
     <input type="text" class="form-control" formControlName="email">
-  </div>
-  <div class="form-group">
-    <label for="">Phone</label>
-    <input type="text" class="form-control" formControlName="phone">
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-success">Edit</button>

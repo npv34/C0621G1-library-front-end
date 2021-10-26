@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import {IUser} from "../admin/users/IUser";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
   private users: IUser[] = [
     {
       username: "admin",
@@ -24,26 +27,31 @@ export class UserService {
       phone: "0909989898",
       avatar: "https://teachingandlearning.schulich.yorku.ca/wp-content/uploads/2019/10/avatar6.png"
     }
-  ]
-  constructor() { }
+  ];
+  api_url = 'http://127.0.0.1:8000/api';
+  constructor(private http: HttpClient) { }
 
-  getAll() {
-    return this.users;
+  getAll(): Observable<any> {
+    return this.http.get(this.api_url + '/users');
   }
 
-  deleteUser(index: number) {
-    this.users.splice(index, 1);
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(this.api_url + '/users/' + id)
   }
 
   addUser(user: IUser) {
     this.users.push(user)
   }
 
-  findByIndex(index: number) {
-    return this.users[index];
+  findByID(id: number): Observable<any> {
+    return this.http.get(this.api_url + '/users/' + id);
   }
 
   update(user: IUser, index: number) {
     this.users[index] = user;
+  }
+
+  getAllRoleUser(): Observable<any> {
+    return this.http.get(this.api_url + '/roles');
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../../services/user.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
@@ -10,19 +10,24 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 })
 export class UserEditComponent implements OnInit {
   formEdit?: FormGroup
+
   constructor(private router: ActivatedRoute,
               private userService: UserService,
               private fb: FormBuilder,
-  private route: Router) { }
+              private route: Router) {
+  }
 
   ngOnInit(): void {
     let id = parseInt(<string>this.router.snapshot.paramMap.get('id'));
-    let user = this.userService.findByIndex(id);
-    this.formEdit = this.fb.group({
-      username: [user.username],
-      email: [user.email],
-      phone: [user.phone],
-    })
+    this.userService.findByID(id).subscribe(res => {
+      console.log(res)
+      this.formEdit = this.fb.group({
+        name: [res.name],
+        email: [res.email],
+      });
+      }
+    );
+
   }
 
   submit() {
